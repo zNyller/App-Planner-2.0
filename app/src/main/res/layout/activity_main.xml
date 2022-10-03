@@ -8,75 +8,25 @@
     android:background="@color/blue_700"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:id="@+id/linear"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="16dp"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerView"
+        android:name="com.nyller.android.mach4.fragments.PreferencesFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnConfig"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/hoje"
-            android:textColor="@color/verdin"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabNewHabit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/checkbox_marked_plus" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/viewPager"
+    <Button
+        android:id="@+id/btnConfig"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_weight="1"
-        android:background="@drawable/borda_arredondada"
-        android:elevation="3dp"
-        android:fadingEdge="none"
-        android:orientation="vertical"
-        android:padding="16dp"
+        android:layout_height="wrap_content"
+        android:text="@string/configuracoes"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@id/linear"
-        app:layout_constraintStart_toStartOf="@id/linear"
-        app:layout_constraintTop_toBottomOf="@id/linear">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/habitos"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="24sp"
-            android:textStyle="bold" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/white" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvHabits"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="36dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-    </LinearLayout>
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

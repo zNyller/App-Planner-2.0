@@ -39,9 +39,9 @@
             app:layout_constraintTop_toBottomOf="@+id/include">
 
             <com.google.android.material.textview.MaterialTextView
+                style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/ThemeOverlay.Material3.AutoCompleteTextView.OutlinedBox"
                 android:background="@drawable/borda_arredondada_textos"
                 android:text="@string/nome"
                 android:textAlignment="center"
