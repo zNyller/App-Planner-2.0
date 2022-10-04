@@ -1,29 +1,38 @@
-package com.nyller.android.mach4
+package com.nyller.android.mach4.fragments
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.view.isEmpty
-import com.nyller.android.mach4.constants.Constants.EXTRA_NEW_HABIT
-import com.nyller.android.mach4.databinding.ActivityNewHabitBinding
+import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.setFragmentResult
+import com.nyller.android.mach4.databinding.FragmentNewHabitBinding
 import com.nyller.android.mach4.model.Habit
 
-class NewHabitActivity : AppCompatActivity() {
+class NewHabitFragment : Fragment() {
 
-    private lateinit var binding: ActivityNewHabitBinding
+    private lateinit var binding: FragmentNewHabitBinding
     private var days = ""
     private var turn = ""
     private var category = ""
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityNewHabitBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentNewHabitBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         binding.btnCategoria.setOnClickListener { showCategoryDialog() }
-        binding.btnCriar.setOnClickListener{ verifyFields() }
+        binding.btnCriar.setOnClickListener { verifyFields() }
 
     }
 
@@ -31,29 +40,23 @@ class NewHabitActivity : AppCompatActivity() {
 
         val options = arrayOf("Alimentação", "Bem Estar", "Criatividade", "Foco", "Organização")
 
-        val dialog = AlertDialog.Builder(this)
-        dialog.apply {
+        val dialog = context?.let { AlertDialog.Builder(it) }
+        dialog?.apply {
             setTitle("Selecione uma categoria:")
-            setSingleChoiceItems(options, -1) {_, selectedOption ->
-
+            setSingleChoiceItems(options, -1) { _, selectedOption ->
                 category = selectedOption.toString()
-                Toast.makeText(this@NewHabitActivity, category, Toast.LENGTH_SHORT).show()
-
             }
-            setPositiveButton("Confirmar") {_, _ ->
+            setPositiveButton("Confirmar") { _, _ ->
 
                 if (category == "-1") {
-                    Toast.makeText(this@NewHabitActivity, "Selecione uma categoria!", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "Selecione uma categoria!", Toast.LENGTH_LONG).show()
                     return@setPositiveButton
                 }
-
-                Toast.makeText(this@NewHabitActivity, "Feito!", Toast.LENGTH_SHORT).show()
-
+                Toast.makeText(context, "Feito!", Toast.LENGTH_SHORT).show()
             }
-
         }
 
-        dialog.show()
+        dialog?.show()
 
     }
 
@@ -87,18 +90,18 @@ class NewHabitActivity : AppCompatActivity() {
         }
 
         if (category.isEmpty()) {
-            Toast.makeText(this@NewHabitActivity, "Selecione uma categoria!", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, "Selecione uma categoria!", Toast.LENGTH_LONG).show()
             return
         }
 
         if (days.isEmpty()) {
-            Toast.makeText(this, "Selecione algum dia da semana!", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, "Selecione algum dia da semana!", Toast.LENGTH_LONG).show()
             return
         }
 
         if (turn.isEmpty()) {
             binding.rgTurnos.requestFocus()
-            Toast.makeText(this, "Selecione algum turno!", Toast.LENGTH_LONG).show()
+            Toast.makeText(context, "Selecione algum turno!", Toast.LENGTH_LONG).show()
             return
         }
 
@@ -107,15 +110,16 @@ class NewHabitActivity : AppCompatActivity() {
     }
 
     private fun saveNewHabit() {
-        val newHabit = Habit(
-            binding.edtHabitName.text.toString(),
-            turn,
-            category
+
+        val newHabit = bundleOf(
+            "HABIT" to Habit(
+                binding.edtHabitName.text.toString(),
+                turn = turn,
+                category = category
+            )
         )
 
-        val intentResult = Intent()
-        intentResult.putExtra(EXTRA_NEW_HABIT, newHabit)
-        setResult(RESULT_OK, intentResult)
-        finish()
+        setFragmentResult("RESULT", newHabit)
+        parentFragmentManager.popBackStack()
     }
 }

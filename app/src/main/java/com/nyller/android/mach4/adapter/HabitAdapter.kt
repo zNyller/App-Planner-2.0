@@ -1,5 +1,6 @@
 package com.nyller.android.mach4.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -59,6 +60,7 @@ class HabitAdapter(
 
         habits.add(habit)
         notifyItemInserted(habits.size - 1)
+        Log.i("Edu", "Salvei o ${habit.name}!")
 
     }
 

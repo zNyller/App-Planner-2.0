@@ -57,4 +57,10 @@
     <string name="hidrate_se">Hidrate-se</string>
     <string name="caminhada">Caminhada</string>
     <string name="alongamentos">Alongamentos</string>
+
+    <string-array name="language">
+        <item name="pt">Portuguese</item>
+        <item name="en">English</item>
+    </string-array>
+
 </resources>

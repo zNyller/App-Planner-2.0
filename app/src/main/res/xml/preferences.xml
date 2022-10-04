@@ -1,13 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <EditTextPreference
         android:defaultValue="Default value"
-        android:key="edit_text_preference_1"
+        android:selectable="false"
+        android:key="edt_premium"
         android:selectAllOnFocus="true"
         android:singleLine="true"
         android:title="Quem está aí?"
         android:summary="Torne-se Premium para salvar seu progresso"
         android:icon="@drawable/ic_person_check"/>
+
+    <PreferenceCategory android:title="Geral"
+        android:icon="@drawable/ic_baseline_settings">
+
+        <SwitchPreference
+            android:iconSpaceReserved="false"
+            android:defaultValue="true"
+            android:key="switch_sound"
+            android:title="Sons"
+            tools:targetApi="o" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="switch_animations"
+            android:title="Animações" />
+
+    </PreferenceCategory>
+    <PreferenceCategory android:title="Idioma"
+        android:icon="@drawable/ic_baseline_language">
+
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/language"
+            android:entryValues="@array/language"
+            android:key="list_preference_1"
+            android:title="Lista" />
+    </PreferenceCategory>
 </PreferenceScreen>
