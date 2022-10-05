@@ -2,7 +2,6 @@ package com.nyller.android.mach4.fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +13,7 @@ import androidx.fragment.app.replace
 import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.nyller.android.mach4.activities.NewHabitActivity
 import com.nyller.android.mach4.adapter.HabitAdapter
 import com.nyller.android.mach4.databinding.FragmentHomeBinding
 import com.nyller.android.mach4.model.Habit
@@ -24,6 +24,7 @@ class HomeFragment : Fragment() {
     private lateinit var binding : FragmentHomeBinding
     private lateinit var adapter: HabitAdapter
     private lateinit var habit : Habit
+    private var codiguin = 1
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,24 +40,13 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupAdapter()
-
         swipe()
         binding.fabNewHabit.setOnClickListener { openNewHabit() }
 
     }
 
     private fun openNewHabit() {
-        parentFragmentManager.commit {
-            setReorderingAllowed(true)
-            replace<NewHabitFragment>(binding.constraintRoot.id)
-            addToBackStack(null)
-        }
-
-        setFragmentResultListener("RESULT") {_, bundle ->
-            this.habit = bundle.getSerializable("HABIT") as Habit
-            adapter.addHabit(this.habit)
-        }
-
+        startActivity(Intent(context, NewHabitActivity::class.java))
     }
 
     private fun setupAdapter() {

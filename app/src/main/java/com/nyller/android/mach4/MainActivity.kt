@@ -1,24 +1,11 @@
 package com.nyller.android.mach4
 
-import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.add
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.RecyclerView
-import com.nyller.android.mach4.adapter.HabitAdapter
-import com.nyller.android.mach4.constants.Constants.EXTRA_NEW_HABIT
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.nyller.android.mach4.databinding.ActivityMainBinding
-import com.nyller.android.mach4.fragments.HomeFragment
-import com.nyller.android.mach4.fragments.NewHabitFragment
-import com.nyller.android.mach4.fragments.PreferencesFragment
-import com.nyller.android.mach4.model.Habit
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,20 +21,11 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
-        binding.btnConfig.setOnClickListener { openPreferences() }
+        val navHostFragment = supportFragmentManager.findFragmentById(binding.navHostFragment.id) as NavHostFragment
+        val navController = navHostFragment.navController
+
+        binding.bottomNavigationView.setupWithNavController(navController)
 
     }
-
-    private fun openPreferences() {
-
-        supportFragmentManager.commit {
-            setReorderingAllowed(true)
-            replace<PreferencesFragment>(binding.fragmentContainerView.id)
-            addToBackStack(null)
-        }
-
-    }
-
-
 
 }

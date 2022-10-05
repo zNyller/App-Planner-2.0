@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/menuHome"
+        android:title="@string/home"
+        android:icon="@drawable/ic_baseline_language"/>
+
+    <item android:id="@+id/menuConfig"
+        android:title="@string/config"
+        android:icon="@drawable/ic_baseline_settings"/>
+
+    <item android:id="@+id/menuNewHabit"
+        android:title="@string/novo_habito"
+        android:icon="@drawable/ic_person_check"/>
+
+</menu>

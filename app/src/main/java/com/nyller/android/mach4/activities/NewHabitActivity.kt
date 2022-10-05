@@ -1,35 +1,36 @@
-package com.nyller.android.mach4.fragments
+package com.nyller.android.mach4.activities
 
+import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
-import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import androidx.fragment.app.setFragmentResult
-import com.nyller.android.mach4.databinding.FragmentNewHabitBinding
+import com.nyller.android.mach4.R
+import com.nyller.android.mach4.databinding.ActivityNewHabitBinding
+import com.nyller.android.mach4.fragments.HomeFragment
 import com.nyller.android.mach4.model.Habit
 
-class NewHabitFragment : Fragment() {
+class NewHabitActivity : AppCompatActivity() {
 
-    private lateinit var binding: FragmentNewHabitBinding
+    private val binding : ActivityNewHabitBinding by lazy {
+        ActivityNewHabitBinding.inflate(layoutInflater)
+    }
+
     private var days = ""
     private var turn = ""
     private var category = ""
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentNewHabitBinding.inflate(inflater, container, false)
-        return binding.root
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(binding.root)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun onStart() {
+        super.onStart()
 
         binding.btnCategoria.setOnClickListener { showCategoryDialog() }
         binding.btnCriar.setOnClickListener { verifyFields() }
@@ -40,8 +41,8 @@ class NewHabitFragment : Fragment() {
 
         val options = arrayOf("Alimentação", "Bem Estar", "Criatividade", "Foco", "Organização")
 
-        val dialog = context?.let { AlertDialog.Builder(it) }
-        dialog?.apply {
+        val dialog = this.let { AlertDialog.Builder(it) }
+        dialog.apply {
             setTitle("Selecione uma categoria:")
             setSingleChoiceItems(options, -1) { _, selectedOption ->
                 category = selectedOption.toString()
@@ -56,7 +57,7 @@ class NewHabitFragment : Fragment() {
             }
         }
 
-        dialog?.show()
+        dialog.show()
 
     }
 
@@ -90,22 +91,23 @@ class NewHabitFragment : Fragment() {
         }
 
         if (category.isEmpty()) {
-            Toast.makeText(context, "Selecione uma categoria!", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Selecione uma categoria!", Toast.LENGTH_LONG).show()
             return
         }
 
         if (days.isEmpty()) {
-            Toast.makeText(context, "Selecione algum dia da semana!", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Selecione algum dia da semana!", Toast.LENGTH_LONG).show()
             return
         }
 
         if (turn.isEmpty()) {
             binding.rgTurnos.requestFocus()
-            Toast.makeText(context, "Selecione algum turno!", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Selecione algum turno!", Toast.LENGTH_LONG).show()
             return
         }
 
         saveNewHabit()
+        finish()
 
     }
 
@@ -119,7 +121,9 @@ class NewHabitFragment : Fragment() {
             )
         )
 
-        setFragmentResult("RESULT", newHabit)
-        parentFragmentManager.popBackStack()
+        supportFragmentManager.commit {
+            setReorderingAllowed(true)
+            replace<HomeFragment>(binding.fragmentContainerView2.id, args = newHabit)
+        }
     }
 }

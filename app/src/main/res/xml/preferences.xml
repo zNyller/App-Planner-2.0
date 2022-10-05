@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <EditTextPreference
         android:defaultValue="Default value"
-        android:selectable="false"
+        android:icon="@drawable/ic_person_check"
         android:key="edt_premium"
         android:selectAllOnFocus="true"
+        android:selectable="false"
         android:singleLine="true"
-        android:title="Quem está aí?"
         android:summary="Torne-se Premium para salvar seu progresso"
-        android:icon="@drawable/ic_person_check"/>
+        android:title="Quem está aí?" />
 
-    <PreferenceCategory android:title="Geral"
-        android:icon="@drawable/ic_baseline_settings">
+    <PreferenceCategory
+        android:icon="@drawable/ic_baseline_settings"
+        android:title="Geral">
 
         <SwitchPreference
-            android:iconSpaceReserved="false"
             android:defaultValue="true"
+            android:iconSpaceReserved="false"
             android:key="switch_sound"
             android:title="Sons"
             tools:targetApi="o" />
@@ -28,8 +29,9 @@
             android:title="Animações" />
 
     </PreferenceCategory>
-    <PreferenceCategory android:title="Idioma"
-        android:icon="@drawable/ic_baseline_language">
+    <PreferenceCategory
+        android:icon="@drawable/ic_baseline_language"
+        android:title="Idioma">
 
         <ListPreference
             android:defaultValue="1"
