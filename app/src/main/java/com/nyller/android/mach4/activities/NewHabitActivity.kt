@@ -1,24 +1,31 @@
 package com.nyller.android.mach4.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
-import androidx.fragment.app.setFragmentResult
-import com.nyller.android.mach4.R
+import com.nyller.android.mach4.database.AppDataBase
+import com.nyller.android.mach4.database.daos.habitDAO
 import com.nyller.android.mach4.databinding.ActivityNewHabitBinding
 import com.nyller.android.mach4.fragments.HomeFragment
 import com.nyller.android.mach4.model.Habit
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class NewHabitActivity : AppCompatActivity() {
 
     private val binding : ActivityNewHabitBinding by lazy {
         ActivityNewHabitBinding.inflate(layoutInflater)
     }
+
+    private lateinit var dataBase: AppDataBase
+    private lateinit var habitDAO: habitDAO
 
     private var days = ""
     private var turn = ""
@@ -27,6 +34,10 @@ class NewHabitActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        dataBase = AppDataBase.getInstance(this)
+        habitDAO = this.dataBase.habitDao()
+
     }
 
     override fun onStart() {
@@ -113,17 +124,33 @@ class NewHabitActivity : AppCompatActivity() {
 
     private fun saveNewHabit() {
 
-        val newHabit = bundleOf(
-            "HABIT" to Habit(
-                binding.edtHabitName.text.toString(),
-                turn = turn,
-                category = category
-            )
-        )
+        CoroutineScope(Dispatchers.IO).launch {
 
-        supportFragmentManager.commit {
-            setReorderingAllowed(true)
-            replace<HomeFragment>(binding.fragmentContainerView2.id, args = newHabit)
+            habitDAO.insert(
+                Habit(
+                binding.edtHabitName.text.toString(),
+                turn,
+                category
+            )
+            )
+
+            withContext(Dispatchers.Main) {
+                Toast.makeText(this@NewHabitActivity, "Hábito salvo!", Toast.LENGTH_LONG).show()
+                finish()
+            }
         }
+
+//        val newHabit = bundleOf(
+//            "HABIT" to Habit(
+//                binding.edtHabitName.text.toString(),
+//                turn = turn,
+//                category = category
+//            )
+//        )
+//
+//        supportFragmentManager.commit {
+//            setReorderingAllowed(true)
+//            replace<HomeFragment>(binding.fragmentContainerView2.id, args = newHabit)
+//        }
     }
 }

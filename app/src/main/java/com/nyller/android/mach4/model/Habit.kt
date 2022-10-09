@@ -1,10 +1,17 @@
 package com.nyller.android.mach4.model
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.io.Serializable
 
+@Entity
 data class Habit(
-    var name: String ?= "null",
-    var turn: String ?= "null",
-    var category: String ?= "null",
-    var done: Boolean = false
-) : Serializable
+    @ColumnInfo(name = "habit_name") var name: String ?= "null",
+    @ColumnInfo(name = "habit_turn") var turn: String ?= "null",
+    @ColumnInfo(name = "habit_category") var category: String ?= "null",
+    @ColumnInfo(name = "habit_state") var done: Boolean = false
+) : Serializable {
+    @PrimaryKey(autoGenerate = true)
+    var uid : Int = 0
+}

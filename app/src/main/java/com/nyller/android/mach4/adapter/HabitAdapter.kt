@@ -56,11 +56,10 @@ class HabitAdapter(
 
     override fun getItemCount(): Int = habits.size
 
-    fun addHabit(habit: Habit){
+    fun addHabit(habit: List<Habit>){
 
-        habits.add(habit)
+        habits.addAll(habit)
         notifyItemInserted(habits.size - 1)
-        Log.i("Edu", "Salvei o ${habit.name}!")
 
     }
 
@@ -69,7 +68,14 @@ class HabitAdapter(
         val updatedPosition = habits.indexOf(habitSelected)
         habits[updatedPosition] = habitSelected
         notifyItemChanged(updatedPosition)
+        Log.i("Edu", "Mudei o ${habitSelected.name} para ${habitSelected.done}")
 
+    }
+
+    fun deleteHabit(habit: Habit) {
+        val deletedPosition = habits.indexOf(habit)
+        habits.remove(habit)
+        notifyItemRemoved(deletedPosition)
     }
 
 }
