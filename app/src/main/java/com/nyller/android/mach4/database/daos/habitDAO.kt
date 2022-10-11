@@ -1,15 +1,16 @@
 package com.nyller.android.mach4.database.daos
 
 import androidx.room.*
-import com.nyller.android.mach4.model.Habit
+import com.nyller.android.mach4.database.models.Habit
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface habitDAO {
 
-    @Query("SELECT * FROM habit")  // Recupera todos hábitos
-    suspend fun getHabits(): List<Habit>
+    @Query("SELECT * FROM habit_table")  // Recupera todos hábitos
+    fun getHabits(): List<Habit>
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(habit: Habit)
 
     @Update

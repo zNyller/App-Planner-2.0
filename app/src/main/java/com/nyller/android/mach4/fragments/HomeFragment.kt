@@ -1,9 +1,7 @@
 package com.nyller.android.mach4.fragments
 
-import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
-import android.text.Layout
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -11,19 +9,15 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
-import androidx.fragment.app.setFragmentResultListener
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.nyller.android.mach4.R
 import com.nyller.android.mach4.activities.NewHabitActivity
-import com.nyller.android.mach4.adapter.HabitAdapter
+import com.nyller.android.mach4.ui.adapters.HabitAdapter
 import com.nyller.android.mach4.database.AppDataBase
 import com.nyller.android.mach4.database.daos.habitDAO
 import com.nyller.android.mach4.databinding.DialogCustomBinding
 import com.nyller.android.mach4.databinding.FragmentHomeBinding
-import com.nyller.android.mach4.model.Habit
+import com.nyller.android.mach4.database.models.Habit
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

@@ -1,18 +1,13 @@
 package com.nyller.android.mach4.activities
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.os.bundleOf
-import androidx.fragment.app.commit
-import androidx.fragment.app.replace
 import com.nyller.android.mach4.database.AppDataBase
 import com.nyller.android.mach4.database.daos.habitDAO
 import com.nyller.android.mach4.databinding.ActivityNewHabitBinding
-import com.nyller.android.mach4.fragments.HomeFragment
-import com.nyller.android.mach4.model.Habit
+import com.nyller.android.mach4.database.models.Habit
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
