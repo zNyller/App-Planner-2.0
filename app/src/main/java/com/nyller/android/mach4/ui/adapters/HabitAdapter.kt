@@ -3,17 +3,17 @@ package com.nyller.android.mach4.ui.adapters
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.nyller.android.mach4.databinding.ResItemHabitBinding
 import com.nyller.android.mach4.database.models.Habit
 
 class HabitAdapter(
     private val onClick: (Habit) -> Unit
-) : RecyclerView.Adapter<HabitAdapter.HabitViewHolder>() {
+) : ListAdapter<Habit, HabitAdapter.HabitViewHolder>(HabitsComparator()) {
 
-    val habits = mutableListOf<Habit>()
-
-    inner class HabitViewHolder(itemView: ResItemHabitBinding) :
+    class HabitViewHolder(itemView: ResItemHabitBinding) :
         RecyclerView.ViewHolder(itemView.root) {
 
         private val tvTurn = itemView.tvTurn
@@ -25,7 +25,6 @@ class HabitAdapter(
             habit: Habit,
             onClick: (Habit) -> Unit
         ) {
-
             tvTurn.text = habit.turn
             tvCategory.text = habit.category
             tvHabitName.text = habit.name
@@ -48,34 +47,23 @@ class HabitAdapter(
     }
 
     override fun onBindViewHolder(holder: HabitViewHolder, position: Int) {
+        val current = getItem(position)
         holder.bind(
-            habits[position],
+            current,
             onClick
         )
     }
 
-    override fun getItemCount(): Int = habits.size
+    class HabitsComparator : DiffUtil.ItemCallback<Habit>() {
 
-    fun addHabit(habit: List<Habit>){
+        override fun areItemsTheSame(oldItem: Habit, newItem: Habit): Boolean {
+            return oldItem == newItem
+        }
 
-        habits.addAll(habit)
-        notifyItemInserted(habits.size - 1)
+        override fun areContentsTheSame(oldItem: Habit, newItem: Habit): Boolean {
+            return oldItem.name == newItem.name
+        }
 
-    }
-
-    fun updateHabit(habitSelected: Habit) {
-
-        val updatedPosition = habits.indexOf(habitSelected)
-        habits[updatedPosition] = habitSelected
-        notifyItemChanged(updatedPosition)
-        Log.i("Edu", "Mudei o ${habitSelected.name} para ${habitSelected.done}")
-
-    }
-
-    fun deleteHabit(habit: Habit) {
-        val deletedPosition = habits.indexOf(habit)
-        habits.remove(habit)
-        notifyItemRemoved(deletedPosition)
     }
 
 }

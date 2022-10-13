@@ -3,17 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navegacao"
-    app:startDestination="@id/menuHome">
-
-    <fragment
-        android:id="@+id/menuHome"
-        android:name="com.nyller.android.mach4.fragments.HomeFragment"
-        android:label="HomeFragment"
-        tools:layout="@layout/fragment_home">
-        <action
-            android:id="@+id/fromHomeFragmentToPreferencesFragment"
-            app:destination="@id/menuConfig" />
-    </fragment>
+    app:startDestination="@id/mainActivity">
 
     <fragment
         android:id="@+id/menuConfig"
@@ -21,7 +11,7 @@
         android:label="PreferencesFragment">
         <action
             android:id="@+id/fromPreferencesFragmentToHomeFragment"
-            app:destination="@id/menuHome"
+            app:destination="@id/mainActivity"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim" />
     </fragment>

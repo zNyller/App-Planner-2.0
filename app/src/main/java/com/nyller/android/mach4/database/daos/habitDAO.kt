@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 interface habitDAO {
 
     @Query("SELECT * FROM habit_table")  // Recupera todos hábitos
-    fun getHabits(): List<Habit>
+    fun getHabits(): Flow<List<Habit>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(habit: Habit)
@@ -18,5 +18,8 @@ interface habitDAO {
 
     @Delete
     suspend fun delete(habit: Habit)
+
+    @Query("DELETE FROM habit_table")  // Deletar todos os dados da tabela
+    suspend fun deleteAll()
 
 }

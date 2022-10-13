@@ -1,26 +1,19 @@
 package com.nyller.android.mach4.activities
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.nyller.android.mach4.database.AppDataBase
-import com.nyller.android.mach4.database.daos.habitDAO
-import com.nyller.android.mach4.databinding.ActivityNewHabitBinding
 import com.nyller.android.mach4.database.models.Habit
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.nyller.android.mach4.databinding.ActivityNewHabitBinding
 
 class NewHabitActivity : AppCompatActivity() {
 
     private val binding : ActivityNewHabitBinding by lazy {
         ActivityNewHabitBinding.inflate(layoutInflater)
     }
-
-    private lateinit var dataBase: AppDataBase
-    private lateinit var habitDAO: habitDAO
 
     private var days = ""
     private var turn = ""
@@ -29,9 +22,6 @@ class NewHabitActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
-        dataBase = AppDataBase.getInstance(this)
-        habitDAO = this.dataBase.habitDao()
 
     }
 
@@ -117,35 +107,23 @@ class NewHabitActivity : AppCompatActivity() {
 
     }
 
+    companion object {
+        const val EXTRA_REPLY = "helo friend"
+    }
+
     private fun saveNewHabit() {
 
-        CoroutineScope(Dispatchers.IO).launch {
+        val habit = Habit(
+            binding.edtHabitName.text.toString(),
+            turn,
+            category
+        )
 
-            habitDAO.insert(
-                Habit(
-                binding.edtHabitName.text.toString(),
-                turn,
-                category
-            )
-            )
+        val replyIntent = Intent()
+        replyIntent.putExtra(EXTRA_REPLY, habit)
+        Log.i("Edu", "Passando os dados : \n $replyIntent, $habit")
+        setResult(RESULT_OK, replyIntent)
+        finish()
 
-            withContext(Dispatchers.Main) {
-                Toast.makeText(this@NewHabitActivity, "Hábito salvo!", Toast.LENGTH_LONG).show()
-                finish()
-            }
-        }
-
-//        val newHabit = bundleOf(
-//            "HABIT" to Habit(
-//                binding.edtHabitName.text.toString(),
-//                turn = turn,
-//                category = category
-//            )
-//        )
-//
-//        supportFragmentManager.commit {
-//            setReorderingAllowed(true)
-//            replace<HomeFragment>(binding.fragmentContainerView2.id, args = newHabit)
-//        }
     }
 }

@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 class HabitsRepository(private val habitDAO: habitDAO) {
 
-    val allHabits : List<Habit> = habitDAO.getHabits()
+    val allHabits : Flow<List<Habit>> = habitDAO.getHabits()
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
