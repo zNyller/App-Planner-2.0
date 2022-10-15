@@ -1,13 +1,12 @@
 package com.nyller.android.mach4.ui.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.nyller.android.mach4.databinding.ResItemHabitBinding
 import com.nyller.android.mach4.database.models.Habit
+import com.nyller.android.mach4.databinding.ResItemHabitBinding
 
 class HabitAdapter(
     private val onClick: (Habit) -> Unit
