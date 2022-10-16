@@ -57,6 +57,8 @@
     <string name="hidrate_se">Hidrate-se</string>
     <string name="caminhada">Caminhada</string>
     <string name="alongamentos">Alongamentos</string>
+    <string name="concluido">Concluído!</string>
+    <string name="concluir">Concluir</string>
 
     <string-array name="language">
         <item name="pt">Portuguese</item>

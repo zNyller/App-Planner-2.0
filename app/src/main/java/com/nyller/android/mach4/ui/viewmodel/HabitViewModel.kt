@@ -14,6 +14,10 @@ class HabitViewModel(private val repository: HabitsRepository) : ViewModel() {
         repository.insert(habit)
     }
 
+    fun delete(habit: Habit) = viewModelScope.launch {
+        repository.delete(habit)
+    }
+
     // Ao usar viewModels e ViewModelProvider.Factory, o framework cuidará do ciclo de vida do ViewModel.
     // Ele sobreviverá a mudanças de configuração e, mesmo que a atividade seja recriada,
     // você sempre receberá a instância correta da classe WordViewModel.

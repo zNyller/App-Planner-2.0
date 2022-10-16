@@ -4,10 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.nyller.android.mach4.activities.NewHabitActivity
 import com.nyller.android.mach4.application.MyApplication
 import com.nyller.android.mach4.database.models.Habit
@@ -76,36 +79,39 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun showHabitDetails(habit: Habit, onHabitStatusChanged: (Habit) -> Unit) {
+    private fun showHabitDetails(habitSelected: Habit, onHabitStatusChanged: (Habit) -> Unit) {
 
         //dialog personalizada
         val build = AlertDialog.Builder(this)
 
         val dialogCustomBinding : DialogCustomBinding = DialogCustomBinding.inflate(LayoutInflater.from(this))
 
-        dialogCustomBinding.tvHabitNameDialog.text = "Nome: ${habit.name}"
-        dialogCustomBinding.tvHabitTurnDialog.text = "Turno: ${habit.turn}"
-        dialogCustomBinding.tvHabitCategoryDialog.text = "Categoria: ${habit.category}"
+        dialogCustomBinding.tvHabitNameDialog.text = "Nome: ${habitSelected.name}"
+        dialogCustomBinding.tvHabitTurnDialog.text = "Turno: ${habitSelected.turn}"
+        dialogCustomBinding.tvHabitCategoryDialog.text = "Categoria: ${habitSelected.category}"
 
         dialogCustomBinding.btnClose.setOnClickListener { dialog.dismiss() }
         dialogCustomBinding.btnDone.setOnClickListener {
-            if (!habit.done) {
-                dialogCustomBinding.btnDone.text = "Concluído!"
-                habit.done = !habit.done
-                onHabitStatusChanged(habit)
+            if (!habitSelected.done) {
+                dialogCustomBinding.btnDone.text = getString(R.string.concluido)
+                habitSelected.done = !habitSelected.done
+                onHabitStatusChanged(habitSelected)
                 return@setOnClickListener
             }
 
             else {
-                dialogCustomBinding.btnDone.text = "Concluir"
-                habit.done = !habit.done
-                onHabitStatusChanged(habit)
+                dialogCustomBinding.btnDone.text = getString(R.string.concluir)
+                habitSelected.done = !habitSelected.done
+                onHabitStatusChanged(habitSelected)
                 return@setOnClickListener
             }
 
         }
 
         dialogCustomBinding.btnDelete.setOnClickListener {
+            habitViewModel.delete(habitSelected)
+            dialog.dismiss()
+            Toast.makeText(this, "Hábito excluído!", Toast.LENGTH_SHORT).show()
         }
 
         build.setView(dialogCustomBinding.root)

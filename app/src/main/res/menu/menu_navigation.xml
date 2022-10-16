@@ -6,12 +6,14 @@
         android:title="@string/home"
         android:icon="@drawable/ic_baseline_language"/>
 
+    <item android:id="@+id/menuStats"
+        android:title="@string/estatisticas"
+        android:icon="@drawable/ic_person_check"/>
+
     <item android:id="@+id/menuConfig"
         android:title="@string/config"
         android:icon="@drawable/ic_baseline_settings"/>
 
-    <item android:id="@+id/menuNewHabit"
-        android:title="@string/novo_habito"
-        android:icon="@drawable/ic_person_check"/>
+
 
 </menu>

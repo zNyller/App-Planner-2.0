@@ -15,4 +15,8 @@ class HabitsRepository(private val habitDAO: habitDAO) {
         habitDAO.insert(habit)
     }
 
+    suspend fun delete(habit: Habit) {
+        habitDAO.delete(habit)
+    }
+
 }
