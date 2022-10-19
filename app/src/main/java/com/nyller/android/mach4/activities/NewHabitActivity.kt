@@ -11,13 +11,13 @@ import com.nyller.android.mach4.databinding.ActivityNewHabitBinding
 
 class NewHabitActivity : AppCompatActivity() {
 
-    private val binding : ActivityNewHabitBinding by lazy {
-        ActivityNewHabitBinding.inflate(layoutInflater)
-    }
-
     private var days = ""
     private var turn = ""
     private var category = ""
+
+    private val binding: ActivityNewHabitBinding by lazy {
+        ActivityNewHabitBinding.inflate(layoutInflater)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -108,7 +108,7 @@ class NewHabitActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val EXTRA_REPLY = "helo friend"
+        const val EXTRA_REPLY = "send data"
     }
 
     private fun saveNewHabit() {

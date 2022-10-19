@@ -9,8 +9,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
 import com.nyller.android.mach4.activities.NewHabitActivity
 import com.nyller.android.mach4.application.MyApplication
 import com.nyller.android.mach4.database.models.Habit
@@ -20,8 +18,6 @@ import com.nyller.android.mach4.ui.adapters.HabitAdapter
 import com.nyller.android.mach4.ui.viewmodel.HabitViewModel
 
 class MainActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivityMainBinding
 
     private lateinit var adapter: HabitAdapter
 
@@ -35,20 +31,22 @@ class MainActivity : AppCompatActivity() {
 
         if(result.resultCode == RESULT_OK) {
             val newHabit = result.data?.getSerializableExtra(NewHabitActivity.EXTRA_REPLY) as Habit
-            habitViewModel.insert(newHabit)
+            mHabitViewModel.insert(newHabit)
             Log.i("Edu", "OK")
         }
 
     }
 
-    private val habitViewModel: HabitViewModel by viewModels {
+    private val mHabitViewModel: HabitViewModel by viewModels {
         HabitViewModel.HabitViewModelFactory((application as MyApplication).repository)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        val binding: ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.habitViewModel = mHabitViewModel
 
         adapter = HabitAdapter(
             onClick = { habit ->
@@ -64,7 +62,7 @@ class MainActivity : AppCompatActivity() {
             getResult.launch(intent)
         }
 
-        habitViewModel.allHabits.observe(this) { habits ->
+        mHabitViewModel.allHabits.observe(this) { habits ->
             habits?.let { adapter.submitList(it) }
         }
     }
@@ -109,7 +107,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         dialogCustomBinding.btnDelete.setOnClickListener {
-            habitViewModel.delete(habitSelected)
+            mHabitViewModel.delete(habitSelected)
             dialog.dismiss()
             Toast.makeText(this, "Hábito excluído!", Toast.LENGTH_SHORT).show()
         }

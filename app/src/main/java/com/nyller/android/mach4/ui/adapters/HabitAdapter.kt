@@ -12,37 +12,34 @@ class HabitAdapter(
     private val onClick: (Habit) -> Unit
 ) : ListAdapter<Habit, HabitAdapter.HabitViewHolder>(HabitsComparator()) {
 
-    class HabitViewHolder(itemView: ResItemHabitBinding) :
-        RecyclerView.ViewHolder(itemView.root) {
-
-        private val tvTurn = itemView.tvTurn
-        private val tvCategory = itemView.tvCategory
-        private val tvHabitName = itemView.tvHabitName
-        private val clHabit = itemView.clHabito
+    class HabitViewHolder private constructor(val binding: ResItemHabitBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(
             habit: Habit,
             onClick: (Habit) -> Unit
         ) {
-            tvTurn.text = habit.turn
-            tvCategory.text = habit.category
-            tvHabitName.text = habit.name
-            clHabit.setOnClickListener {
+            binding.tvTurn.text = habit.turn
+            binding.tvCategory.text = habit.category
+            binding.tvHabitName.text = habit.name
+            binding.clHabito.setOnClickListener {
                 onClick(habit)
             }
+        }
 
+        companion object {
+            fun from(parent: ViewGroup): HabitViewHolder {
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding = ResItemHabitBinding.inflate(layoutInflater, parent, false)
+
+                return HabitViewHolder(binding)
+            }
         }
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HabitViewHolder {
-        return HabitViewHolder(
-            ResItemHabitBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            )
-        )
+        return HabitViewHolder.from(parent)
     }
 
     override fun onBindViewHolder(holder: HabitViewHolder, position: Int) {
@@ -62,7 +59,5 @@ class HabitAdapter(
         override fun areContentsTheSame(oldItem: Habit, newItem: Habit): Boolean {
             return oldItem.name == newItem.name
         }
-
     }
-
 }
