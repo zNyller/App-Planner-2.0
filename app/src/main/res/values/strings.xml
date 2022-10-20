@@ -59,6 +59,7 @@
     <string name="alongamentos">Alongamentos</string>
     <string name="concluido">Concluído!</string>
     <string name="concluir">Concluir</string>
+    <string name="floatinactionbutton">FloatinActionButton</string>
 
     <string-array name="language">
         <item name="pt">Portuguese</item>

@@ -19,7 +19,7 @@ import com.nyller.android.mach4.ui.viewmodel.HabitViewModel
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var adapter: HabitAdapter
+//    private lateinit var adapter: HabitAdapter
 
     private lateinit var dialog : AlertDialog
 
@@ -48,12 +48,10 @@ class MainActivity : AppCompatActivity() {
 
         binding.habitViewModel = mHabitViewModel
 
-        adapter = HabitAdapter(
-            onClick = { habit ->
-                showHabitDetails(habit) { habitSelected ->
-                    // Atualizar adapter
-                }
-            }
+        val adapter = HabitAdapter(HabitAdapter.HabitClickListener { habitId ->
+            Toast.makeText(this, "Habito ID: $habitId", Toast.LENGTH_SHORT).show()
+            mHabitViewModel.onHabitClicked(habitId)
+        }
         )
         binding.rvHabits.adapter = adapter
 
@@ -63,8 +61,17 @@ class MainActivity : AppCompatActivity() {
         }
 
         mHabitViewModel.allHabits.observe(this) { habits ->
-            habits?.let { adapter.submitList(it) }
+            habits?.let { adapter.addHeaderAndSubmitList(it) }
         }
+
+        mHabitViewModel.openHabitDetail.observe(this) { habit ->
+            habit?.let {
+//                startActivity(Intent(this, StatsActivity::class.java))
+                Toast.makeText(this, "Detalhes do Item! :D", Toast.LENGTH_LONG).show()
+                mHabitViewModel.onHabitOpened()
+            }
+        }
+
     }
 
     override fun onStart() {

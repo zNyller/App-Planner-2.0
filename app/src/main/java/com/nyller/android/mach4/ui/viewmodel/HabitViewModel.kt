@@ -9,6 +9,22 @@ class HabitViewModel(private val repository: HabitsRepository) : ViewModel() {
 
     val allHabits: LiveData<List<Habit>> = repository.allHabits.asLiveData()
 
+    // Implementar o _openHabitDetail
+    private val _openHabitDetail = MutableLiveData<Long?>()
+    val openHabitDetail
+        get() = _openHabitDetail
+
+    fun onHabitClicked(id: Long) {
+        _openHabitDetail.value = id
+        // Criar Activity HabitDetail
+    }
+
+    // Após abrir os detalhes:
+    fun onHabitOpened() {
+        _openHabitDetail.value = null
+    }
+
+
     /* Launching a new coroutine to insert the data in a non-blocking way */
     fun insert(habit: Habit) = viewModelScope.launch {
         repository.insert(habit)

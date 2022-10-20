@@ -114,9 +114,9 @@ class NewHabitActivity : AppCompatActivity() {
     private fun saveNewHabit() {
 
         val habit = Habit(
-            binding.edtHabitName.text.toString(),
-            turn,
-            category
+            name = binding.edtHabitName.text.toString(),
+            turn = turn,
+            category = category
         )
 
         val replyIntent = Intent()

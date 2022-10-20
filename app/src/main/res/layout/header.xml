@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="header"
+            type="com.nyller.android.mach4.ui.adapters.HabitAdapter.DataItem.Header" />
+    </data>
+
+    <TextView
+        android:id="@+id/tvHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@color/blue_700"
+        android:text="@{header.title.toString()}"
+        tools:text="@string/turno"
+        android:textAlignment="center"
+        android:textColor="@color/light_gray"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+</layout>

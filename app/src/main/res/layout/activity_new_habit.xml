@@ -69,6 +69,7 @@
                     android:layout_marginBottom="30dp"
                     android:background="@drawable/borda_botao_arredondada"
                     android:text="@={newHabitViewModel.name}"
+                    android:maxLength="20"
                     android:hint="@string/ex_exercicios"
                     android:inputType="textPersonName"
                     android:padding="10dp"

@@ -1,67 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
-            name="habitAdapter"
-            type="com.nyller.android.mach4.ui.adapters.HabitAdapter" />
+            name="habit"
+            type="com.nyller.android.mach4.database.models.Habit" />
+        
+        <variable
+            name="clickListener"
+            type="com.nyller.android.mach4.ui.adapters.HabitAdapter.HabitClickListener" />
+        
     </data>
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:cardCornerRadius="9dp"
+        android:onClick="@{() -> clickListener.onClick(habit)}"
         android:layout_margin="8dp">
 
         <LinearLayout
-            android:id="@+id/clHabito"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="64dp"
+            android:shadowRadius="@color/black"
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tvTurn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/blue_700"
-                android:text="@string/turno"
-                android:textAlignment="center"
-                android:textColor="@color/light_gray"
-                android:textSize="20sp"
+                android:id="@+id/tvCategory"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/bg_category"
+                android:gravity="center"
+                android:text="@{habit.category}"
+                tools:text="@string/categoria"
+                android:textColor="@color/white"
+                android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="62dp"
+            <TextView
+                android:id="@+id/tvHabitName"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:background="@drawable/bg_habit"
                 android:gravity="center"
-                android:maxHeight="62dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tvCategory"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@color/purple_200"
-                    android:gravity="center"
-                    android:padding="8dp"
-                    android:text="@string/categoria"
-                    android:textColor="@color/white"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tvHabitName"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:background="@color/teal_700"
-                    android:gravity="center"
-                    android:text="@string/habito"
-                    android:textColor="@color/white"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
+                android:text="@{habit.name}"
+                tools:text="@string/habito"
+                android:textColor="@color/white"
+                android:textSize="17sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 

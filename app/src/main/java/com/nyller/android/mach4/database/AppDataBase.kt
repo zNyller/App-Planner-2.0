@@ -10,7 +10,7 @@ import com.nyller.android.mach4.database.models.Habit
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-@Database(entities = [Habit::class], version = 1)
+@Database(entities = [Habit::class], version = 2)
 abstract class AppDataBase : RoomDatabase() {
 
     abstract fun habitDao(): habitDAO
@@ -32,7 +32,7 @@ abstract class AppDataBase : RoomDatabase() {
 
             habitDao.deleteAll()
 
-            val example = Habit("Beber 2L de Água", "Manhã", "Exemplo")
+            val example = Habit( name ="Beber 2L de Água", turn = "Qualquer Hora", category = "Exemplo")
             habitDao.insert(example)
 
         }
