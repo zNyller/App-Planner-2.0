@@ -25,7 +25,7 @@
 
     <activity
         android:id="@+id/menuStats"
-        android:name="com.nyller.android.mach4.activities.StatsActivity"
+        android:name="com.nyller.android.mach4.ui.activities.StatsActivity"
         android:label="activity_stats"
         tools:layout="@layout/activity_stats" />
 

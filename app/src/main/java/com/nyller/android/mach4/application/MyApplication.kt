@@ -2,7 +2,7 @@ package com.nyller.android.mach4.application
 
 import android.app.Application
 import com.nyller.android.mach4.database.AppDataBase
-import com.nyller.android.mach4.repositories.HabitsRepository
+import com.nyller.android.mach4.database.repositories.HabitsRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 

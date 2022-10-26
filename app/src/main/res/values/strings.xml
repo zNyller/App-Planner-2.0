@@ -60,6 +60,8 @@
     <string name="concluido">Concluído!</string>
     <string name="concluir">Concluir</string>
     <string name="floatinactionbutton">FloatinActionButton</string>
+    <string name="excluir">Excluir</string>
+    <string name="salvar">Salvar</string>
 
     <string-array name="language">
         <item name="pt">Portuguese</item>

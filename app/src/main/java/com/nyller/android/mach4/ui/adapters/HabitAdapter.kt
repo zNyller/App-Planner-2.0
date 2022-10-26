@@ -34,7 +34,6 @@ class HabitAdapter(private val clickListener: HabitClickListener) :
         fun bind(item: DataItem.Header) {
             with(binding) {
                 header = item
-//                executePendingBindings()
             }
         }
 
@@ -119,8 +118,8 @@ class HabitAdapter(private val clickListener: HabitClickListener) :
         }
     }
 
-    class HabitClickListener(val clickListener: (habitId: Long) -> Unit) {
-        fun onClick(habit: Habit) = clickListener(habit.habitId)
+    class HabitClickListener(val clickListener: (habitId: Habit) -> Unit) {
+        fun onClick(habit: Habit) = clickListener(habit)
     }
 
     sealed class DataItem {

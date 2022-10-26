@@ -1,4 +1,4 @@
-package com.nyller.android.mach4.activities
+package com.nyller.android.mach4.ui.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

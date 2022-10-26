@@ -1,4 +1,4 @@
-package com.nyller.android.mach4.activities
+package com.nyller.android.mach4.ui.activities
 
 import android.content.Intent
 import android.os.Bundle

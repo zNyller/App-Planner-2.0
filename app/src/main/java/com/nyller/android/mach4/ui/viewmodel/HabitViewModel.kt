@@ -2,21 +2,19 @@ package com.nyller.android.mach4.ui.viewmodel
 
 import androidx.lifecycle.*
 import com.nyller.android.mach4.database.models.Habit
-import com.nyller.android.mach4.repositories.HabitsRepository
+import com.nyller.android.mach4.database.repositories.HabitsRepository
 import kotlinx.coroutines.launch
 
 class HabitViewModel(private val repository: HabitsRepository) : ViewModel() {
 
     val allHabits: LiveData<List<Habit>> = repository.allHabits.asLiveData()
 
-    // Implementar o _openHabitDetail
-    private val _openHabitDetail = MutableLiveData<Long?>()
+    private val _openHabitDetail = MutableLiveData<Habit?>()
     val openHabitDetail
         get() = _openHabitDetail
 
-    fun onHabitClicked(id: Long) {
+    fun onHabitClicked(id: Habit) {
         _openHabitDetail.value = id
-        // Criar Activity HabitDetail
     }
 
     // Após abrir os detalhes:
@@ -24,14 +22,9 @@ class HabitViewModel(private val repository: HabitsRepository) : ViewModel() {
         _openHabitDetail.value = null
     }
 
-
     /* Launching a new coroutine to insert the data in a non-blocking way */
     fun insert(habit: Habit) = viewModelScope.launch {
         repository.insert(habit)
-    }
-
-    fun delete(habit: Habit) = viewModelScope.launch {
-        repository.delete(habit)
     }
 
     // Ao usar viewModels e ViewModelProvider.Factory, o framework cuidará do ciclo de vida do ViewModel.

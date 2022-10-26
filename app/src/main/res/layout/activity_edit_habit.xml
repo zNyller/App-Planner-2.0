@@ -5,7 +5,7 @@
 
     <data>
         <variable
-            name="newHabitViewModel"
+            name="viewModel"
             type="com.nyller.android.mach4.ui.viewmodel.NewHabitViewModel" />
 
     </data>
@@ -15,7 +15,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/blue_700"
-        tools:context=".ui.activities.NewHabitActivity">
+        tools:context=".ui.activities.EditHabitActivity">
 
         <include
             android:id="@+id/include"
@@ -40,6 +40,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="1dp"
+
                 android:background="@drawable/borda_arredondada"
                 android:orientation="vertical"
                 android:padding="10dp"
@@ -68,9 +69,8 @@
                     android:layout_marginEnd="40dp"
                     android:layout_marginBottom="30dp"
                     android:background="@drawable/borda_botao_arredondada"
-                    android:text="@={newHabitViewModel.name}"
+
                     android:maxLength="20"
-                    android:hint="@string/ex_exercicios"
                     android:inputType="textPersonName"
                     android:padding="10dp"
                     android:textAlignment="center"
@@ -316,18 +316,34 @@
                 </RadioGroup>
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnCriar"
+                    android:id="@+id/btnSalvar"
                     style="@style/Widget.Material3.Button.OutlinedButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:padding="15dp"
-                    android:text="@string/criar"
+                    android:text="@string/salvar"
                     android:textAllCaps="true"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:backgroundTint="@color/white"
+                    app:strokeColor="@color/black"
+                    app:strokeWidth="2dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnDeleteHabit"
+                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:padding="15dp"
+                    android:text="@string/excluir"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:backgroundTint="@color/light_gray"
                     app:strokeColor="@color/black"
                     app:strokeWidth="2dp" />
 
