@@ -27,6 +27,34 @@ class HabitViewModel(private val repository: HabitsRepository) : ViewModel() {
         repository.insert(habit)
     }
 
+    private fun getUpdatedHabitEntry(
+        habitId: Long,
+        habitName: String,
+        habitTurn: String,
+        habitCategory: String
+    ): Habit {
+        return Habit(
+            habitId = habitId,
+            name = habitName,
+            turn = habitTurn,
+            category = habitCategory
+        )
+    }
+
+    fun updateItem(
+        habitId: Long,
+        habitName: String,
+        habitTurn: String,
+        habitCategory: String
+    ) {
+        val updatedItem = getUpdatedHabitEntry(habitId, habitName, habitTurn, habitCategory)
+        updateItem(updatedItem)
+    }
+
+    private fun updateItem(habit: Habit) = viewModelScope.launch {
+        repository.update(habit)
+    }
+
     // Ao usar viewModels e ViewModelProvider.Factory, o framework cuidará do ciclo de vida do ViewModel.
     class HabitViewModelFactory(private val repository: HabitsRepository) :
         ViewModelProvider.Factory {

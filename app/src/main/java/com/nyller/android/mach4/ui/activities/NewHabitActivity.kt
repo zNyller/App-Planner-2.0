@@ -11,7 +11,6 @@ import com.nyller.android.mach4.databinding.ActivityNewHabitBinding
 
 class NewHabitActivity : AppCompatActivity() {
 
-    private var days = ""
     private var turn = ""
     private var category = ""
 
@@ -65,14 +64,6 @@ class NewHabitActivity : AppCompatActivity() {
         if (category == "3") category = "Foco"
         if (category == "4") category = "Organização"
 
-        if (binding.cbDomingo.isChecked) days += 0
-        if (binding.cbSegunda.isChecked) days += 1
-        if (binding.cbTerca.isChecked) days += 2
-        if (binding.cbQuarta.isChecked) days += 3
-        if (binding.cbQuinta.isChecked) days += 4
-        if (binding.cbSexta.isChecked) days += 5
-        if (binding.cbSabado.isChecked) days += 6
-
         val selectedTurn = binding.rgTurnos.checkedRadioButtonId
 
         if (selectedTurn == binding.rbManha.id) turn = "Manhã"
@@ -88,11 +79,6 @@ class NewHabitActivity : AppCompatActivity() {
 
         if (category.isEmpty()) {
             Toast.makeText(this, "Selecione uma categoria!", Toast.LENGTH_LONG).show()
-            return
-        }
-
-        if (days.isEmpty()) {
-            Toast.makeText(this, "Selecione algum dia da semana!", Toast.LENGTH_LONG).show()
             return
         }
 

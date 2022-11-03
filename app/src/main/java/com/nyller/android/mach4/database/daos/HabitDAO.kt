@@ -5,7 +5,7 @@ import com.nyller.android.mach4.database.models.Habit
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface habitDAO {
+interface HabitDAO {
 
     @Query("SELECT * FROM habit_table")  // Recupera todos hábitos
     fun getHabits(): Flow<List<Habit>>
@@ -14,7 +14,7 @@ interface habitDAO {
     suspend fun insert(habit: Habit)
 
     @Update
-    suspend fun update(vararg habit: Habit)
+    suspend fun update(habit: Habit)
 
     @Delete
     suspend fun delete(habit: Habit)

@@ -1,6 +1,5 @@
 package com.nyller.android.mach4.ui.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -12,17 +11,6 @@ import kotlinx.coroutines.launch
 class NewHabitViewModel(private val repository: HabitsRepository) : ViewModel() {
 
     val name = MutableLiveData<String>()
-
-    private var days = ""
-    private var turn = ""
-    private var category = ""
-
-    fun verifyFields() {
-        Log.i("Edu", "Click!")
-        if (name.value?.isEmpty() == true) {
-            Log.i("Edu", "Name está vazio! Preencher!")
-        }
-    }
 
     fun delete(habit: Habit) = viewModelScope.launch {
         repository.delete(habit)
@@ -41,6 +29,6 @@ class NewHabitViewModel(private val repository: HabitsRepository) : ViewModel() 
             }
             throw IllegalArgumentException("Unknown ViewModel class")
         }
-            }
+    }
 
 }

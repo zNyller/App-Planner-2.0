@@ -1,11 +1,11 @@
 package com.nyller.android.mach4.database.repositories
 
 import androidx.annotation.WorkerThread
-import com.nyller.android.mach4.database.daos.habitDAO
+import com.nyller.android.mach4.database.daos.HabitDAO
 import com.nyller.android.mach4.database.models.Habit
 import kotlinx.coroutines.flow.Flow
 
-class HabitsRepository(private val habitDAO: habitDAO) {
+class HabitsRepository(private val habitDAO: HabitDAO) {
 
     val allHabits : Flow<List<Habit>> = habitDAO.getHabits()
 

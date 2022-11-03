@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.nyller.android.mach4.database.daos.habitDAO
+import com.nyller.android.mach4.database.daos.HabitDAO
 import com.nyller.android.mach4.database.models.Habit
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 @Database(entities = [Habit::class], version = 2)
 abstract class AppDataBase : RoomDatabase() {
 
-    abstract fun habitDao(): habitDAO
+    abstract fun habitDao(): HabitDAO
 
     private class HabitDatabaseCallback(
         private val scope: CoroutineScope
@@ -28,11 +28,11 @@ abstract class AppDataBase : RoomDatabase() {
             }
         }
 
-        suspend fun populateDatabase(habitDao: habitDAO) {
+        suspend fun populateDatabase(habitDao: HabitDAO) {
 
             habitDao.deleteAll()
 
-            val example = Habit( name ="Beber 2L de Água", turn = "Qualquer Hora", category = "Exemplo")
+            val example = Habit( name ="Beber 2L de Água", turn = "Turno", category = "Exemplo")
             habitDao.insert(example)
 
         }

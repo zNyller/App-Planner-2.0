@@ -3,16 +3,12 @@ package com.nyller.android.mach4
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.nyller.android.mach4.application.MyApplication
 import com.nyller.android.mach4.database.models.Habit
 import com.nyller.android.mach4.databinding.ActivityMainBinding
-import com.nyller.android.mach4.databinding.DialogCustomBinding
 import com.nyller.android.mach4.ui.activities.EditHabitActivity
 import com.nyller.android.mach4.ui.activities.NewHabitActivity
 import com.nyller.android.mach4.ui.adapters.HabitAdapter
@@ -20,7 +16,7 @@ import com.nyller.android.mach4.ui.viewmodel.HabitViewModel
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var dialog: AlertDialog
+//    private lateinit var dialog: AlertDialog
 
     private val getResult = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
