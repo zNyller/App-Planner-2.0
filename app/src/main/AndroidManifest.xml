@@ -18,9 +18,6 @@
             android:name=".ui.activities.EditHabitActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.StatsActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.activities.NewHabitActivity"
             android:exported="false" />
         <activity

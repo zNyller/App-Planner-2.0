@@ -2,15 +2,15 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/menuHome"
+    <item android:id="@+id/homeFragment"
         android:title="@string/home"
         android:icon="@drawable/ic_baseline_home"/>
 
-    <item android:id="@+id/menuStats"
+    <item android:id="@+id/statsFragment"
         android:title="@string/estatisticas"
         android:icon="@drawable/ic_person_check"/>
 
-    <item android:id="@+id/menuConfig"
+    <item android:id="@+id/statsConfig"
         android:title="@string/config"
         android:icon="@drawable/ic_baseline_settings"/>
 

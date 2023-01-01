@@ -6,6 +6,8 @@ import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.nyller.android.mach4.application.MyApplication
 import com.nyller.android.mach4.database.models.Habit
 import com.nyller.android.mach4.databinding.ActivityMainBinding
@@ -18,16 +20,20 @@ class MainActivity : AppCompatActivity() {
 
 //    private lateinit var dialog: AlertDialog
 
-    private val getResult = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) { result ->
-
-        if (result.resultCode == RESULT_OK) {
-            val newHabit = result.data?.getSerializableExtra(NewHabitActivity.EXTRA_REPLY) as Habit
-            mHabitViewModel.insert(newHabit)
-            Log.i("Edu", "OK")
-        }
+    private val binding by lazy {
+        ActivityMainBinding.inflate(layoutInflater)
     }
+
+//    private val getResult = registerForActivityResult(
+//        ActivityResultContracts.StartActivityForResult()
+//    ) { result ->
+//
+//        if (result.resultCode == RESULT_OK) {
+//            val newHabit = result.data?.getSerializableExtra(NewHabitActivity.EXTRA_REPLY) as Habit
+//            mHabitViewModel.insert(newHabit)
+//            Log.i("Edu", "OK")
+//        }
+//    }
 
     private val mHabitViewModel: HabitViewModel by viewModels {
         HabitViewModel.HabitViewModelFactory((application as MyApplication).repository)
@@ -35,36 +41,37 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding: ActivityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        setupBottomNavigation()
 
 //        binding.habitViewModel = mHabitViewModel
 
-        val adapter = HabitAdapter(HabitAdapter.HabitClickListener { habit ->
-            mHabitViewModel.onHabitClicked(habit)
-        })
-
-        binding.rvHabits.adapter = adapter
-
-        binding.fabNewHabit.setOnClickListener {
-            val intent = Intent(this, NewHabitActivity::class.java)
-            getResult.launch(intent)
-        }
-
-        mHabitViewModel.allHabits.observe(this) { habits ->
-            habits?.let { adapter.addHeaderAndSubmitList(it) }
-        }
-
-        mHabitViewModel.openHabitDetail.observe(this) { habit ->
-            habit?.let {
-                val intent = Intent(this, EditHabitActivity::class.java)
-                intent.putExtra("HABIT_DETAILS", habit)
-                startActivity(intent)
-                mHabitViewModel.onHabitOpened()
-            }
-        }
-
-    }
+//        val adapter = HabitAdapter(HabitAdapter.HabitClickListener { habit ->
+//            mHabitViewModel.onHabitClicked(habit)
+//        })
+//
+//        binding.rvHabits.adapter = adapter
+//
+//        binding.fabNewHabit.setOnClickListener {
+//            val intent = Intent(this, NewHabitActivity::class.java)
+//            getResult.launch(intent)
+//        }
+//
+//        mHabitViewModel.allHabits.observe(this) { habits ->
+//            habits?.let { adapter.addHeaderAndSubmitList(it) }
+//        }
+//
+//        mHabitViewModel.openHabitDetail.observe(this) { habit ->
+//            habit?.let {
+//                val intent = Intent(this, EditHabitActivity::class.java)
+//                intent.putExtra("HABIT_DETAILS", habit)
+//                startActivity(intent)
+//                mHabitViewModel.onHabitOpened()
+//            }
+//        }
+//
+//    }
 
 //    private fun showHabitDetails(habitSelected: Habit, onHabitStatusChanged: (Habit) -> Unit) {
 //
@@ -104,6 +111,12 @@ class MainActivity : AppCompatActivity() {
 //
 //        dialog = build.create()
 //        dialog.show()
-//    }
+    }
+
+    private fun setupBottomNavigation() {
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(binding.navHostFragment.id) as NavHostFragment
+        binding.bottomNavigationView.setupWithNavController(navHostFragment.navController)
+    }
 
 }

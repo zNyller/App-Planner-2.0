@@ -3,30 +3,46 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navegacao"
-    app:startDestination="@id/menuHome">
-
-    <activity
-        android:id="@+id/menuHome"
-        android:name="com.nyller.android.mach4.MainActivity"
-        android:label="activity_main"
-        tools:layout="@layout/activity_main" />
+    app:startDestination="@id/homeFragment">
 
     <fragment
-        android:id="@+id/menuConfig"
-        android:name="com.nyller.android.mach4.fragments.PreferencesFragment"
-        android:label="PreferencesFragment">
+        android:id="@+id/homeFragment"
+        android:name="com.nyller.android.mach4.ui.fragments.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home" >
         <action
-            android:id="@+id/fromPreferencesFragmentToHomeFragment"
-            app:destination="@id/menuHome"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim" />
+            android:id="@+id/action_homeFragment_to_newHabitFragment"
+            app:destination="@id/newHabitFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_statsFragment"
+            app:destination="@id/statsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_menuConfig"
+            app:destination="@id/statsConfig" />
+        <argument
+            android:name="habit"
+            app:argType="com.nyller.android.mach4.database.models.Habit"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
 
-
-    <activity
-        android:id="@+id/menuStats"
-        android:name="com.nyller.android.mach4.ui.activities.StatsActivity"
-        android:label="activity_stats"
-        tools:layout="@layout/activity_stats" />
+    <fragment
+        android:id="@+id/statsConfig"
+        android:name="com.nyller.android.mach4.ui.fragments.PreferencesFragment"
+        android:label="PreferencesFragment" />
+    <fragment
+        android:id="@+id/newHabitFragment"
+        android:name="com.nyller.android.mach4.ui.fragments.NewHabitFragment"
+        android:label="NewHabitFragment"
+        tools:layout="@layout/fragment_new_habit" >
+        <action
+            android:id="@+id/action_newHabitFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/statsFragment"
+        android:name="com.nyller.android.mach4.ui.fragments.StatsFragment"
+        android:label="StatsFragment"
+        tools:layout="@layout/fragment_stats" />
 
 </navigation>
