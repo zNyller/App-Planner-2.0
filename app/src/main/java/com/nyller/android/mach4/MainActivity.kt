@@ -1,19 +1,12 @@
 package com.nyller.android.mach4
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.nyller.android.mach4.application.MyApplication
-import com.nyller.android.mach4.database.models.Habit
 import com.nyller.android.mach4.databinding.ActivityMainBinding
-import com.nyller.android.mach4.ui.activities.EditHabitActivity
-import com.nyller.android.mach4.ui.activities.NewHabitActivity
-import com.nyller.android.mach4.ui.adapters.HabitAdapter
 import com.nyller.android.mach4.ui.viewmodel.HabitViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -23,17 +16,6 @@ class MainActivity : AppCompatActivity() {
     private val binding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
-
-//    private val getResult = registerForActivityResult(
-//        ActivityResultContracts.StartActivityForResult()
-//    ) { result ->
-//
-//        if (result.resultCode == RESULT_OK) {
-//            val newHabit = result.data?.getSerializableExtra(NewHabitActivity.EXTRA_REPLY) as Habit
-//            mHabitViewModel.insert(newHabit)
-//            Log.i("Edu", "OK")
-//        }
-//    }
 
     private val mHabitViewModel: HabitViewModel by viewModels {
         HabitViewModel.HabitViewModelFactory((application as MyApplication).repository)

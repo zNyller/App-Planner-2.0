@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -14,8 +14,7 @@
         android:id="@+id/clNewHabit"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/blue_700"
-        tools:context=".ui.activities.EditHabitActivity">
+        android:background="@color/blue_700">
 
         <include
             android:id="@+id/include"

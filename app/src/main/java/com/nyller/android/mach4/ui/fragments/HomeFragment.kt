@@ -1,6 +1,7 @@
 package com.nyller.android.mach4.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,7 +41,8 @@ class HomeFragment : Fragment() {
         }
 
         val adapter = HabitAdapter(HabitAdapter.HabitClickListener { habit ->
-            mHabitViewModel.onHabitClicked(habit)
+            val action = HomeFragmentDirections.actionHomeFragmentToEditHabitFragment(habit)
+            findNavController().navigate(action)
         })
 
         binding.rvHabits.adapter = adapter
@@ -52,11 +54,6 @@ class HomeFragment : Fragment() {
         setFragmentResultListener("request_key") { _, bundle ->
             val result = bundle.getSerializable("newHabit") as Habit
             mHabitViewModel.insert(result)
-        }
-
-        mHabitViewModel.openHabitDetail.observe(viewLifecycleOwner) { habit ->
-            // Passar o hábito por Safe Args
-            mHabitViewModel.onHabitOpened()
         }
 
         return binding.root

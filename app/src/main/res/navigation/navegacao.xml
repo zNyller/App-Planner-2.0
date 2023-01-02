@@ -13,17 +13,14 @@
         <action
             android:id="@+id/action_homeFragment_to_newHabitFragment"
             app:destination="@id/newHabitFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_statsFragment"
-            app:destination="@id/statsFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_menuConfig"
-            app:destination="@id/statsConfig" />
         <argument
             android:name="habit"
             app:argType="com.nyller.android.mach4.database.models.Habit"
             app:nullable="true"
             android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_homeFragment_to_editHabitFragment"
+            app:destination="@id/editHabitFragment" />
     </fragment>
 
     <fragment
@@ -44,5 +41,14 @@
         android:name="com.nyller.android.mach4.ui.fragments.StatsFragment"
         android:label="StatsFragment"
         tools:layout="@layout/fragment_stats" />
+    <fragment
+        android:id="@+id/editHabitFragment"
+        android:name="com.nyller.android.mach4.ui.fragments.EditHabitFragment"
+        android:label="EditHabitFragment"
+        tools:layout="@layout/fragment_edit_habit" >
+        <argument
+            android:name="habitEdit"
+            app:argType="com.nyller.android.mach4.database.models.Habit" />
+    </fragment>
 
 </navigation>
